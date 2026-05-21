@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RimeWidgetBlueprintEditor", "RimeWidgetBlueprintEditor.csproj", "{C689EE65-E4DF-4431-9285-C4A18130C4AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Debug|x64.ActiveCfg = Debug|x64
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Debug|x64.Build.0 = Debug|x64
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Release|x64.ActiveCfg = Release|x64
+		{C689EE65-E4DF-4431-9285-C4A18130C4AE}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5197D19-F721-45C7-BC99-55C957332C55}
+	EndGlobalSection
+EndGlobal

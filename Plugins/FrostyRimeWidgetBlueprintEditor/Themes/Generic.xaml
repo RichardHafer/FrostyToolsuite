@@ -1,0 +1,102 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:RimeWidgetBlueprintEditor.Editor"
+    xmlns:core="clr-namespace:Frosty.Core.Controls;assembly=FrostyCore"
+    xmlns:ctrl="clr-namespace:Frosty.Controls;assembly=FrostyControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fdev="FrostyDeveloper"
+    xmlns:editors="clr-namespace:Frosty.Core.Controls.Editors;assembly=FrostyCore"
+    xmlns:conv="clr-namespace:Frosty.Core.Converters;assembly=FrostyCore">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/FrostyControls;component/Themes/Generic.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- UI Blueprint Editor -->
+    <Style TargetType="{x:Type local:UIEditor}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:UIEditor}">
+                    <Grid>
+                        <ctrl:FrostyDockablePanel ClipToBounds="True" x:Name="PART_UIEditorLayer" Visibility="Hidden" Grid.Column="0" Title="" TitleBarVisible="False">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="24"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.Background>
+                                    <ImageBrush x:Name="PART_BackgroundGrid" ImageSource="/RimeWidgetBlueprintEditor;component/Images/Grid.png" TileMode="Tile" Viewport="0,0,28,28" ViewportUnits="Absolute" Stretch="None"/>
+                                </Grid.Background>
+
+                                <Border Panel.ZIndex="10">
+                                    <DockPanel>
+                                        <Border Background="{StaticResource ControlBackground}" Margin="-2"/>
+                                    </DockPanel>
+                                </Border>
+
+                                <!-- UI Editor -->
+                                <Button Panel.ZIndex="10" x:Name="PART_AddObject" Visibility="Collapsed" HorizontalAlignment="Left" Width="25" Height="25" Margin="2,0,0,0" ToolTip="Add a UI item" IsEnabled="True">
+                                    <Button.Content>
+                                        <Image Width="14" Source="/FrostyEditor;component/Images/Add.png"/>
+                                    </Button.Content>
+                                </Button>
+
+                                <Button Panel.ZIndex="10" x:Name="PART_Refresh" HorizontalAlignment="Left" Width="25" Height="25" Margin="2,0,0,0" ToolTip="Refresh UI" IsEnabled="True">
+                                    <Button.Content>
+                                        <Image Width="14" Source="/RimeWidgetBlueprintEditor;component/Images/Refresh.png"/>
+                                    </Button.Content>
+                                </Button>
+
+                                <Button Panel.ZIndex="10" x:Name="PART_Precise" HorizontalAlignment="Left" Width="25" Height="25" Margin="30,0,0,0" ToolTip="Precise Movement (ON)" IsEnabled="True">
+                                    <Button.Content>
+                                        <Image x:Name="PART_PreciseImage" Width="14" Source="/RimeWidgetBlueprintEditor;component/Images/Precise_ON.png"/>
+                                    </Button.Content>
+                                </Button>
+
+                                <Button Panel.ZIndex="10" x:Name="PART_Unhide" HorizontalAlignment="Left" Width="25" Height="25" Margin="58,0,0,0" ToolTip="Unhide all UI" IsEnabled="True">
+                                    <Button.Content>
+                                        <Image x:Name="PART_UnhideImage" Width="14" Source="/FrostyEditor;component/Images/Reference.png"/>
+                                    </Button.Content>
+                                </Button>
+
+                                <TextBlock x:Name="PART_ZoomPercent" Panel.ZIndex="10" Opacity="0.75" Foreground="{StaticResource FontColor}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="100% Zoom"/>
+
+                                <Viewbox Grid.Row="1" Margin="40,40,40,40">
+                                    <Grid x:Name="PART_UISize" SnapsToDevicePixels="True" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <Rectangle Fill="White" Opacity="0.02"/>
+
+                                        <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="True" Grid.Row="1" x:Name="PART_UICanvas">
+                                        </Canvas>
+                                    </Grid>
+                                </Viewbox>
+
+                                <TextBlock Panel.ZIndex="10" x:Name="PART_UIComponentInfo" Visibility="Visible" Grid.Row="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.5">
+                                    InstanceName: '' <LineBreak/>
+                                    Offset: 0, 0 <LineBreak/>
+                                    Anchor: 0, 0 <LineBreak/>
+                                    00000000-0000-0000-0000-000000000000
+                                </TextBlock>
+
+                                <TextBlock Panel.ZIndex="10" x:Name="PART_UISizeText" FontSize="24" Visibility="Visible" Grid.Row="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.8"/>
+                            </Grid>
+                        </ctrl:FrostyDockablePanel>
+
+                        <Grid x:Name="PART_DefaultEditorLayer" Visibility="Visible">
+                            <ctrl:FrostyDockablePanel Title="Properties" Icon="/FrostyEditor;component/Images/Properties.png">
+                                <core:FrostyPropertyGrid x:Name="PART_AssetPropertyGrid" Asset="{Binding Asset, RelativeSource={RelativeSource TemplatedParent}}" Modified="{Binding AssetModified, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            </ctrl:FrostyDockablePanel>
+                        </Grid>
+
+                        <Button x:Name="PART_SwitchView" Width="24" Height="24" Margin="0,2,0,10" HorizontalAlignment="Right" VerticalAlignment="Top" ToolTip="Switch View" IsEnabled="True" Panel.ZIndex="999">
+                            <Button.Content>
+                                <Image Width="14" Source="/FrostyEditor;component/Images/EditLabel.png"/>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
