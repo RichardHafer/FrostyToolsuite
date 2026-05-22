@@ -324,17 +324,25 @@ namespace Frosty.ModSupport
             {
                 // --- Abort if extra mod-generated CAS files are present ---
                 // The Data folder is definitely dirty; catalog files may also be modified.
+                // Delete the extra CAS files BEFORE aborting so the user can run Steam
+                // 'Verify Integrity' on a folder that is missing only the mod additions
+                // (otherwise Steam sees the extra CAS files, considers them junk it can't
+                // restore, and the folder stays dirty even after a verify run).
                 if (HasExtraModCasFiles(gamePath))
                 {
+                    DeleteModCasFiles(gamePath);
+
                     FrostyMessageBox.Show(
                         "Mod-generated CAS files were detected in your Dead Space Data folder, " +
                         "but no vanilla backup exists yet.\n\n" +
-                        "The Data folder may no longer be in a clean state, so a reliable backup cannot be created.\n\n" +
-                        "Please verify game integrity via Steam first:\n" +
+                        "Frosty has already removed the mod-generated CAS files for you. " +
+                        "The remaining catalog/.toc files may still be modified, so a reliable " +
+                        "backup cannot be created from the current state.\n\n" +
+                        "Please verify game integrity via Steam now:\n" +
                         "Right-click Dead Space → Properties → Installed Files → Verify integrity of game files\n\n" +
                         "Then apply mods again to create a clean backup automatically.",
                         "Dead Space: Cannot Create Backup");
-                    throw new InvalidOperationException("Dead Space: Dirty Data detected with no existing backup. Mod application aborted.");
+                    throw new InvalidOperationException("Dead Space: Dirty Data detected with no existing backup. Extra CAS files removed; user must verify game integrity via Steam. Mod application aborted.");
                 }
 
                 // --- First-time backup: ask the user to confirm clean state ---
