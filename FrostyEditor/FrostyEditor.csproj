@@ -122,6 +122,12 @@
     <Compile Include="Commands\ExportModMenuItemCommand.cs" />
     <Compile Include="Extensions\TextExtension.cs" />
     <Compile Include="DiscordRPC.cs" />
+    <Compile Include="Mcp\EbxMcpEdit.cs" />
+    <Compile Include="Mcp\EbxMcpSerializer.cs" />
+    <Compile Include="Mcp\EbxMcpUndo.cs" />
+    <Compile Include="Mcp\EbxObjectCloner.cs" />
+    <Compile Include="Mcp\FrostyMcpServer.cs" />
+    <Compile Include="Mcp\FrostyMcpTools.cs" />
     <Compile Include="FileUnblocker.cs" />
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
