@@ -26,6 +26,7 @@ using FrostySdk;
 using FrostySdk.IO;
 using FrostySdk.Managers;
 using FrostySdk.Managers.Entries;
+using FrostyEditor.Mcp;
 using Microsoft.Win32;
 using Bookmarks = Frosty.Core.Bookmarks;
 
@@ -58,6 +59,7 @@ namespace FrostyEditor.Windows
         public FrostyProject Project => m_project;
         
         private FrostyProject m_project;
+        private FrostyMcpServer m_mcpServer;
         private System.Timers.Timer m_autoSaveTimer;
         private FrostyDataExplorer m_currentExplorer;
 
@@ -370,6 +372,9 @@ namespace FrostyEditor.Windows
                     InitialUILoad();
                 }
             }
+
+            if (ProfilesLibrary.HasLoadedProfile)
+                EnsureMcpServer();
         }
 
         private void logTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -578,6 +583,47 @@ namespace FrostyEditor.Windows
                 SystemSounds.Exclamation.Play();
                 FrostyMessageBox.Show($"Your Frosty Editor installation is located within OneDrive.\n\n{Environment.CurrentDirectory.ToString()}\n\nThis is known to cause issues when creating symbolic links for ModData. Please move your installation to another location.", "Frosty Editor");
             }
+
+        }
+
+        private void EnsureMcpServer()
+        {
+            FrostyMcpTools.ProjectProvider = () => m_project;
+            if (m_mcpServer != null && m_mcpServer.IsRunning)
+                return;
+
+            int port = 17341;
+            try
+            {
+                port = Config.Get("McpPort", 17341);
+            }
+            catch
+            {
+                port = 17341;
+            }
+
+            FrostyMcpServer server = new FrostyMcpServer();
+            try
+            {
+                server.Start(port);
+                m_mcpServer = server;
+                App.Logger.Log("MCP server listening at http://127.0.0.1:{0}/mcp", server.Port);
+            }
+            catch (Exception ex)
+            {
+                server.Stop();
+                App.Logger.LogError("Failed to start MCP server on port {0}: {1}", port, ex.Message);
+            }
+        }
+
+        private void StopMcpServer()
+        {
+            if (m_mcpServer == null)
+                return;
+
+            m_mcpServer.Stop();
+            m_mcpServer = null;
+            App.Logger.Log("MCP server stopped");
         }
 		
         private void ResetItemsSources()
@@ -1036,6 +1082,8 @@ namespace FrostyEditor.Windows
             {
                 Bookmarks.BookmarkDb.SaveDb();
             }
+
+            StopMcpServer();
         }
 
         private void dataExplorer_SelectedAssetDoubleClick(object sender, RoutedEventArgs e)
